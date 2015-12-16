@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @currency_convert.currency %>
+  <%= @currency_convert.currency_to %>
+
+</p>
+
+<%= link_to 'Edit', edit_currency_convert_path(@currency_convert) %> |
+<%= link_to 'Back', currency_converts_path %>

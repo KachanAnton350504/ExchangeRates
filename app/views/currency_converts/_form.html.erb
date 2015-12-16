@@ -1,0 +1,25 @@
+<%= form_for(@currency_convert) do |f| %>
+  <% if @currency_convert.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@currency_convert.errors.count, "error") %> prohibited this currency_convert from being saved:</h2>
+
+      <ul>
+      <% @currency_convert.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :currency %><br>
+    <%= f.text_field :currency %>
+    <br>
+    <%= f.label :currency_to %><br>
+    <%= f.text_field :currency_to %>
+    
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

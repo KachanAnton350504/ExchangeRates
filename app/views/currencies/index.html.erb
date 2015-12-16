@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<div id="infoArea" style="display: @none">
+  <div class="marketHead">
+    <h1 class="shiftedShadow">Курсы наличных валют</h1>
+    <h3> <%= link_to 'Добавить валюту', new_currency_path %></h3>
+  </div>
+</div>
+
+<table id="marketRates" class="keTable">
+  <thead class="green2 textLinkShadow">
+    <tr>
+      <th>Валюта</th>
+      <th title="Средний курс покупки">Продажа, руб</th>
+      <th title="Средний курс покупки">Покупка, руб</th>
+      <th title="Изменения за год">Изменения за год, руб</th>
+      <th title="Настройки">Настройки</th>
+    </tr>
+  </thead>
+  
+  <% a = 0 %>
+  <% @currencies.each do |currency| %>
+    <tr>
+      <td class="curr textLinkShadow"><%= currency.currency %>/<%= currency.currency_to %></td>
+      <td>
+        <%= @array[a][2].ask %><sup class="increased" title="Изменение за сутки"><%= @array[a][2].change %></sup>
+      </td>
+      <td><%=@array[a][2].last_trade_price %></td>
+      <td><%= @array[a][2].weeks_range_52 %></td>
+      <td>  
+        <%= link_to 'Edit', edit_currency_path(currency) %>
+        <%= link_to 'Destroy', currency, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+    <%  a = a + 1%>
+  <% end %>
+</table>

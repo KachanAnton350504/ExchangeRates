@@ -1,0 +1,66 @@
+<p id="notice"><%= notice %></p>
+
+<div id="infoArea" style="display: @none">
+  <div class="marketHead">
+    <h1 class="shiftedShadow">Конвертер валют</h1>
+    <h3> <%= link_to 'Новая валюта для конвертации', new_currency_convert_path %></h3>
+  </div>
+</div>
+    
+<table id="marketRates" class="keTable">
+  
+  <thead>
+    <tr>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+  
+  <thead class="green2 textLinkShadow">    
+    <tr>
+        <th>Валюта</th>
+        <th title="Сумма">Сумма для конвертации</th>
+        <th title="Результат">Результат</th>
+        <th title="Результат">Результат2</th>
+        <th title="Настройки">Настройки</th>
+
+    </tr>
+  </thead>
+  
+  <%= link_to "time", time_path, remote: true %>
+  <div id='time_div'></div>
+
+  <% index = 0%>
+  <% @currency_converts.each do |currency_convert| %>
+    <tr>
+    <td class="curr textLinkShadow"><%= currency_convert.currency %> => <%= currency_convert.currency_to %></td>
+    
+    <td>
+        <%= form_for :q, url: {action: 'convert'}, method: :get, remote: true  do |f| %>
+          <%= f.number_field :index %>
+          <%= f.hidden_field :number, value: index %>
+          <%= f.submit ("convert") %>
+        <% end %>
+    </td>
+
+    <td>
+      <%= currency_convert.currency %> => <%= currency_convert.currency_to %>
+      <div class="green2 textLinkShadow">
+      <%= content_tag :div, class: "result#{index}" do %><% end %>
+      </div>
+    </td>
+
+    <td> 
+      <%= currency_convert.currency_to %> => <%= currency_convert.currency %>
+      <div class="green2 textLinkShadow">
+      <%= content_tag :div, class: "result2#{index}" do %><% end %>
+      </div>
+    </td>
+  
+    <td>
+      <%=link_to 'Edit', edit_currency_convert_path(currency_convert)%> <%= link_to 'Destroy', currency_convert, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+    </tr>
+    <% index += 1 %>
+  <% end %>
+</table>
+
